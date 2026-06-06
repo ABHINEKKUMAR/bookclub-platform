@@ -20,14 +20,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { clearAuthSession } from "@/lib/auth-session";
 
 export default function Navbar() {
   const router = useRouter();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-
-    router.push("/login");
+    clearAuthSession();
+    router.replace("/login");
   };
 
   return (

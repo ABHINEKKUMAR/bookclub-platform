@@ -288,6 +288,7 @@ import { useDispatch } from "react-redux";
 import api from "@/services/api";
 
 import { setCredentials } from "@/store/authSlice";
+import { saveAuthSession } from "@/lib/auth-session";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -333,11 +334,7 @@ export default function RegisterPage() {
 
       /* SAVE TOKEN */
 
-      localStorage.setItem(
-        "token",
-        data.token
-      );
-      document.cookie = `token=${data.token}; path=/; SameSite=Lax`;
+      saveAuthSession(data.token);
 
       /* SAVE USER IN REDUX */
 

@@ -116,6 +116,7 @@ import {
 import api from "@/services/api";
 
 import { setCredentials } from "@/store/authSlice";
+import { saveAuthSession } from "@/lib/auth-session";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -154,12 +155,7 @@ export default function LoginPage() {
 
       /* SAVE TOKEN */
 
-      localStorage.setItem(
-        "token",
-        res.data.token
-      );
-
-      document.cookie = `token=${res.data.token}; path=/; SameSite=Lax`;
+      saveAuthSession(res.data.token);
 
       /* SAVE USER */
 
@@ -172,7 +168,9 @@ export default function LoginPage() {
 
       /* REDIRECT */
 
-      router.push(res.data.user.role === "reader" ? "/account" : "/dashboard");
+      const requestedPath = new URLSearchParams(window.location.search).get("next");
+      const staffPath = requestedPath?.startsWith("/dashboard") ? requestedPath : "/dashboard";
+      router.replace(res.data.user.role === "reader" ? "/account" : staffPath);
     } catch (error: unknown) {
       console.log(error);
 

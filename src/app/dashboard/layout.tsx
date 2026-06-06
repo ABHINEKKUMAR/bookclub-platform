@@ -13,10 +13,12 @@ import {
   Star,
   Users,
   Menu,
+  LogOut,
   X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
+import { clearAuthSession } from "@/lib/auth-session";
 import { LoadingState } from "@/components/dashboard/dashboard-ui";
 
 type Role = "admin" | "editor" | "librarian" | "club-host" | "reader";
@@ -58,7 +60,10 @@ export default function DashboardLayout({
         }
         setRole(currentRole);
       })
-      .catch(() => router.replace("/login"));
+      .catch(() => {
+        clearAuthSession();
+        router.replace(`/login?next=${encodeURIComponent(window.location.pathname)}`);
+      });
   }, [router]);
 
   const currentRoute = links.find((link) => link.href === "/dashboard" ? pathname === link.href : pathname.startsWith(link.href));
@@ -100,6 +105,16 @@ export default function DashboardLayout({
             );
           })}
         </nav>
+        <button
+          onClick={() => {
+            clearAuthSession();
+            router.replace("/login");
+          }}
+          className="mt-8 flex w-full items-center gap-3 rounded-xl border border-white/10 px-4 py-3 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white"
+        >
+          <LogOut size={18} />
+          Logout
+        </button>
       </aside>
 
       <main className="min-w-0 flex-1 pt-16 lg:pt-0">{children}</main>

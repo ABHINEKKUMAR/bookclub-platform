@@ -1,0 +1,4 @@
+"use client";
+import {useEffect,useState} from "react";import {useParams} from "next/navigation";import api from "@/lib/api";import PublicShell from "@/components/public/public-shell";
+type Entry={title:string;body:string;excerpt:string;type:string;publishedAt?:string};
+export default function ArticlePage(){const{slug}=useParams<{slug:string}>();const[item,setItem]=useState<Entry|null>(null);useEffect(()=>{api.get(`/content/published/${slug}`).then(r=>setItem(r.data.content))},[slug]);return <PublicShell><article className="mx-auto max-w-3xl px-6 py-16">{item&&<><p className="font-bold uppercase tracking-wider text-blue-600">{item.type}</p><h1 className="mt-4 text-5xl font-black">{item.title}</h1><p className="mt-5 text-xl text-slate-500">{item.excerpt}</p><div className="mt-10 whitespace-pre-wrap leading-8 text-slate-700">{item.body}</div></>}</article></PublicShell>}

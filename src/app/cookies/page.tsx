@@ -1,0 +1,1 @@
+import InfoPage from "@/components/public/info-page";export default function Cookies(){return <InfoPage eyebrow="Legal" title="Cookie Policy"><p>BookClub uses an authentication cookie to maintain secure sessions.</p><p>Analytics or marketing cookies should only be enabled with appropriate consent in production.</p></InfoPage>}

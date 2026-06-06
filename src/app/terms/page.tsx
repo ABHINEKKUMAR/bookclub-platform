@@ -1,0 +1,1 @@
+import InfoPage from "@/components/public/info-page";export default function Terms(){return <InfoPage eyebrow="Legal" title="Terms of Service"><p>Use BookClub respectfully and only for lawful reading-community activities.</p><p>Users are responsible for their posts, reviews, account security, and returning borrowed materials on time.</p></InfoPage>}

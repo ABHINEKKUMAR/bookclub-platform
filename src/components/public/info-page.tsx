@@ -1,0 +1,2 @@
+import PublicShell from "./public-shell";
+export default function InfoPage({eyebrow,title,children}:{eyebrow:string;title:string;children:React.ReactNode}){return <PublicShell><article className="mx-auto max-w-3xl px-6 py-16"><p className="font-bold uppercase tracking-[.2em] text-blue-600">{eyebrow}</p><h1 className="mt-3 text-5xl font-black">{title}</h1><div className="mt-8 grid gap-5 leading-8 text-slate-600">{children}</div></article></PublicShell>}
